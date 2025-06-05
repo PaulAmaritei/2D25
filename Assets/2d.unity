@@ -463,8 +463,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cdfcdb34787cbc44ae5665b2c4bf849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopThreshold: 0.1
+  stopThreshold: 0.3
   slowDownFactor: 0.95
+  gravityScale: 3
+  bounceDampening: 0.9
+  torqueDampeningPerBounce: 0.5
+  initialTorqueStrength: 10
+  maxBounces: 10
 --- !u!58 &541989060
 CircleCollider2D:
   m_ObjectHideFlags: 0
