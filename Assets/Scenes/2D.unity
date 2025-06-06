@@ -839,6 +839,7 @@ GameObject:
   - component: {fileID: 1819139135}
   - component: {fileID: 1819139134}
   - component: {fileID: 1819139133}
+  - component: {fileID: 1819139137}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -892,7 +893,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -4355272409397247203, guid: aa0bac156d7ec3c46be2f25f43efd758, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.27, y: 5.77}
@@ -989,6 +990,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1819139137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819139132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3508d4ca1eae8942bff0903e9947b55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 6
+  driveSpeed: 9
+  driveDuration: 0.175
+  doubleTapTime: 0.25
+  driveCooldownTime: 0.7
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
