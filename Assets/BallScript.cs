@@ -3,29 +3,24 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float stopThreshold = 0.1f;
-    public float slowDownFactor = 0.999f;
+    public float stopThreshold = 0.5f;
+    public float slowDownFactor = 0.98f;
     private bool isStopping = false;
 
-    public float gravityScale = 3f;
-    public float bounceDampening = 0.8f;
-    public float torqueDampeningPerBounce = 0.5f;
+    public float gravityScale = 2f;
+    public float bounceDampening = 0.85f;
+    public float torqueDampeningPerBounce = 0.85f;
     public float initialTorqueStrength = 10f;
 
     private bool hasStoppedCompletely = false;
-    private int bounceCount = 0;                    
-    public int maxBounces = 7;                   
+    private int bounceCount = 0;
+    public int maxBounces = 10;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
-
-        
-        float horizontalPush = Random.Range(-1.5f, 1.5f);
-        float verticalPush = 8f; 
-        rb.linearVelocity = new Vector2(horizontalPush, verticalPush);
-        rb.AddTorque(Random.Range(-initialTorqueStrength, initialTorqueStrength));
+        // All physics values are set by script, so no initial push needed
     }
 
     void Update()
@@ -57,21 +52,17 @@ public class BallScript : MonoBehaviour
     {
         if (hasStoppedCompletely) return;
 
-        bounceCount++;  // Increment bounce count
-
-        // If 7 bounces, stop the ball
+        bounceCount++;
         if (bounceCount >= maxBounces)
         {
             StopBallCompletely();
             return;
         }
 
-        // Damp bounce
         Vector2 velocity = rb.linearVelocity;
         velocity.y *= bounceDampening;
-        rb.linearVelocity = new Vector2(velocity.x, velocity.y);
+        rb.linearVelocity = velocity;
 
-        // Dampen spin per bounce
         rb.angularVelocity *= torqueDampeningPerBounce;
     }
 
