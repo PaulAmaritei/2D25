@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ecbc4bfd9bb8c5f4ca5e167f33de6031
+guid: ebca6edb5b07f8140a9a104c137629cb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7144990109534422992
-    second: basketball rotation 3_0
+      213: -7262328396927834784
+    second: withBall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: basketball rotation 3_0
+      name: withBall_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 29
-        width: 287
-        height: 287
+        x: 189
+        y: 115
+        width: 131
+        height: 277
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d78a7a16aa182360800000000000000
-      internalID: 7144990109534422992
+      spriteID: 06562eaecc6073b90800000000000000
+      internalID: -7262328396927834784
       vertices: []
       indices: 
       edges: []

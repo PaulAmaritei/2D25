@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BallScript : MonoBehaviour
@@ -20,7 +21,6 @@ public class BallScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
-        // All physics values are set by script, so no initial push needed
     }
 
     void Update()
@@ -50,21 +50,46 @@ public class BallScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hasStoppedCompletely) return;
+         if (hasStoppedCompletely) return;
 
-        bounceCount++;
-        if (bounceCount >= maxBounces)
-        {
-            StopBallCompletely();
-            return;
-        }
-
-        Vector2 velocity = rb.linearVelocity;
-        velocity.y *= bounceDampening;
-        rb.linearVelocity = velocity;
-
-        rb.angularVelocity *= torqueDampeningPerBounce;
+    bounceCount++;
+    if (bounceCount >= maxBounces)
+    {
+        StopBallCompletely();
+        return;
     }
+
+    Vector2 velocity = rb.linearVelocity;
+    velocity.y *= bounceDampening;
+    rb.linearVelocity = velocity;
+
+    rb.angularVelocity *= torqueDampeningPerBounce;
+
+    // --- REMOVE OR COMMENT OUT THIS PART ---
+    // if (collision.gameObject.CompareTag("Rim") ||
+    //     collision.gameObject.CompareTag("Backboard") ||
+    //     collision.gameObject.CompareTag("Player1") ||
+    //     collision.gameObject.CompareTag("Player2"))
+    // {
+    //     if (gameObject.CompareTag("BallFromP1") || gameObject.CompareTag("BallFromP2"))
+    //     {
+    //         gameObject.tag = "Ball";
+    //     }
+    // }
+    // --- END REMOVE ---
+
+    // Only use the delay coroutine
+    StartCoroutine(SetBallTagAfterDelay());
+    }
+
+    IEnumerator SetBallTagAfterDelay()
+{
+    yield return new WaitForSeconds(0.1f); // Adjust delay as needed
+    if (gameObject != null) // Safety check
+    {
+        gameObject.tag = "Ball";
+    }
+}
 
     void StopBallCompletely()
     {
@@ -72,5 +97,6 @@ public class BallScript : MonoBehaviour
         rb.angularVelocity = 0f;
         rb.bodyType = RigidbodyType2D.Static;
         hasStoppedCompletely = true;
+        // DO NOT change tag here! Only change tag when hitting rim, backboard, or another player.
     }
 }

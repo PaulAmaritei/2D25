@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e2bb3a298198fee40b66ef59de71be2e
+guid: cf30209101fabee479a1c45ec25f5b18
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 99408775154533490
-    second: Bron w Ball_0
+      213: -3842353275482561300
+    second: Standing_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bron w Ball_0
+      name: Standing_0
       rect:
         serializedVersion: 2
         x: 189
         y: 115
-        width: 143
+        width: 116
         height: 277
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 27484aa11cb216100800000000000000
-      internalID: 99408775154533490
+      spriteID: ce4ad49bd083daac0800000000000000
+      internalID: -3842353275482561300
       vertices: []
       indices: 
       edges: []

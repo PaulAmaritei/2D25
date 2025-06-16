@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2c172655d5a45dc48a36e244de345e7c
+guid: 83a20bfff572b7e489dad566ff8c0b43
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3972365485724422775
-    second: Lebron James Standing_0
+      213: -4390423455950668112
+    second: withLeftBall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lebron James Standing_0
+      name: withLeftBall_0
       rect:
         serializedVersion: 2
-        x: 44
-        y: 29
-        width: 242
-        height: 587
+        x: 171
+        y: 115
+        width: 140
+        height: 277
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 77250aedc5da02730800000000000000
-      internalID: 3972365485724422775
+      spriteID: 0be7486d0251213c0800000000000000
+      internalID: -4390423455950668112
       vertices: []
       indices: 
       edges: []

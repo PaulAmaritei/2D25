@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class Player2Movement : MonoBehaviour
 {
@@ -14,7 +14,14 @@ public class Player2Movement : MonoBehaviour
     public float minShootPower = 3f;
     public float maxShootPower = 8f;
     public float maxChargeTime = 1f;
-    public float stealDistance = 1.5f;
+    public float stealRange = 1.5f;
+    public float stealChance = 0.3f;
+
+    public SpriteRenderer playerSpriteRenderer;
+    public Sprite spriteNoBall;
+    public Sprite spriteWithBall;
+    public Sprite spriteShooting;
+    public bool hasBall = false;
 
     private Rigidbody2D rb;
     private bool isGrounded = false;
@@ -24,27 +31,25 @@ public class Player2Movement : MonoBehaviour
     private float driveTimer = 0f;
     private int driveDirection = 0;
     private float driveCooldownTimer = 0f;
-    public bool hasBall = false;
     private bool isCharging = false;
     private float chargeStartTime = 0f;
     private Vector2 _lastShotOrigin;
-    private int normalLayer, playerLayer, phasingLayer;
-    private bool isPhasing = false;
+    private bool isShooting = false;
+    private int originalLayer;
+    private int phasingLayer = 3;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
-        normalLayer = gameObject.layer;
-        playerLayer = LayerMask.NameToLayer("Player2");
-        phasingLayer = LayerMask.NameToLayer("Phasing");
+        playerSpriteRenderer.sprite = spriteNoBall;
+        originalLayer = gameObject.layer;
+        gameObject.layer = 7;
+        originalLayer = 7;
     }
 
     void Update()
     {
-         if (ScoreManager.Instance != null && ScoreManager.Instance.lockMovement)
-        return;
-        
         driveCooldownTimer -= Time.deltaTime;
 
         float moveInput = 0f;
@@ -86,8 +91,6 @@ public class Player2Movement : MonoBehaviour
             {
                 isDriving = false;
                 driveCooldownTimer = driveCooldownTime;
-                isPhasing = false;
-                gameObject.layer = playerLayer;
             }
         }
 
@@ -96,19 +99,43 @@ public class Player2Movement : MonoBehaviour
             isCharging = true;
             chargeStartTime = Time.time;
         }
-        else if (Input.GetKeyDown(KeyCode.M) && !hasBall)
-        {
-            TrySteal();
-        }
 
         if (Input.GetKeyUp(KeyCode.M) && isCharging)
         {
             float chargeDuration = Time.time - chargeStartTime;
             chargeDuration = Mathf.Min(chargeDuration, maxChargeTime);
             float normalizedPower = chargeDuration / maxChargeTime;
+            isShooting = true;
+            playerSpriteRenderer.sprite = spriteShooting;
             ShootBall(normalizedPower);
             isCharging = false;
             hasBall = false;
+            playerSpriteRenderer.sprite = spriteNoBall;
+            isShooting = false;
+        }
+
+        // Steal logic
+        if (Input.GetKeyDown(KeyCode.M) && !hasBall)
+        {
+            GameObject otherPlayer = GameObject.FindGameObjectWithTag("Player1");
+            if (otherPlayer != null)
+            {
+                float distance = Vector2.Distance(transform.position, otherPlayer.transform.position);
+                if (distance <= stealRange)
+                {
+                    PlayerMovement p1 = otherPlayer.GetComponent<PlayerMovement>();
+                    if (p1 != null && p1.hasBall)
+                    {
+                        if (Random.value < stealChance)
+                        {
+                            p1.hasBall = false;
+                            p1.playerSpriteRenderer.sprite = p1.spriteNoBall;
+                            hasBall = true;
+                            playerSpriteRenderer.sprite = spriteWithBall;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -117,34 +144,51 @@ public class Player2Movement : MonoBehaviour
         isDriving = true;
         driveDirection = direction;
         driveTimer = driveDuration;
-        isPhasing = true;
+        originalLayer = gameObject.layer;
         gameObject.layer = phasingLayer;
+        StartCoroutine(ResetLayerAfterDrive());
+    }
+
+    private IEnumerator ResetLayerAfterDrive()
+    {
+        yield return new WaitForSeconds(driveDuration);
+        gameObject.layer = originalLayer;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         foreach (ContactPoint2D contact in collision.contacts)
+    {
+        if (contact.normal.y > 0.5f)
         {
-            if (contact.normal.y > 0.5f)
-            {
-                isGrounded = true;
-                break;
-            }
+            isGrounded = true;
+            break;
         }
+    }
 
-        if (collision.gameObject.CompareTag("Ball"))
-        {
-            Destroy(collision.gameObject);
-            hasBall = true;
-        }
+    // Player 2 can pick up "Ball" or "BallFromP1"
+    if (collision.gameObject.CompareTag("Ball") || collision.gameObject.CompareTag("BallFromP1"))
+    {
+        Debug.Log(gameObject.name + " collided with ball, tag: " + collision.gameObject.tag);
+        Destroy(collision.gameObject);
+        hasBall = true;
+        playerSpriteRenderer.sprite = spriteWithBall;
+    }
+        // Steal logic (if you want to keep it, but it's now handled in Update)
+        // else if (collision.gameObject.CompareTag("Player1") && collision.gameObject.GetComponent<PlayerMovement>().hasBall)
+        // {
+        //     ... (your steal code)
+        // }
     }
 
     private void ShootBall(float normalizedPower)
     {
         _lastShotOrigin = ballHoldPoint.position;
+
         Vector3 spawnPosition = ballHoldPoint.position;
         GameObject newBall = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
         newBall.tag = "BallFromP2";
+        Debug.Log("Ball shot by " + gameObject.name + ", tag: " + newBall.tag);
 
         Rigidbody2D ballRb = newBall.GetComponent<Rigidbody2D>();
         if (ballRb == null)
@@ -164,38 +208,15 @@ public class Player2Movement : MonoBehaviour
         Collider2D col = newBall.GetComponent<Collider2D>();
         if (col != null) col.sharedMaterial = mat;
 
-        Vector2 shootDirection = new Vector2(0.9f, 0.8f).normalized;
+        float direction = transform.localScale.x > 0 ? 1 : -1;
+        newBall.transform.position += new Vector3(0.2f * direction, 0, 0);
+
+        Vector2 shootDirection = new Vector2(0.9f * direction, 0.8f).normalized;
         float power = Mathf.Lerp(minShootPower, maxShootPower, normalizedPower);
 
         ballRb.linearVelocity = Vector2.zero;
         ballRb.angularVelocity = 0f;
         ballRb.AddForce(shootDirection * power, ForceMode2D.Impulse);
-
-        StartCoroutine(DisablePickupBriefly(newBall));
-    }
-
-    IEnumerator DisablePickupBriefly(GameObject ball)
-    {
-        ball.tag = "Untagged";
-        yield return new WaitForSeconds(0.1f);
-        ball.tag = "Ball";
-    }
-
-    private void TrySteal()
-    {
-        PlayerMovement otherPlayer = FindObjectOfType<PlayerMovement>();
-        if (otherPlayer != null && otherPlayer.hasBall)
-        {
-            float dist = Vector2.Distance(transform.position, otherPlayer.transform.position);
-            if (dist < stealDistance)
-            {
-                if (Random.value < 0.5f)
-                {
-                    otherPlayer.hasBall = false;
-                    hasBall = true;
-                }
-            }
-        }
     }
 
     public Vector2 GetLastShotOrigin()

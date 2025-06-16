@@ -8,6 +8,10 @@ TagManager:
   - BallPickup
   - BallFromP1
   - BallFromP2
+  - Player1
+  - Player2
+  - Rim
+  - Backboard
   layers:
   - Default
   - TransparentFX
