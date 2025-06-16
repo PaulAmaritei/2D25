@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 32d5728de314b2f4eb4527a745393849
+guid: ecbc4bfd9bb8c5f4ca5e167f33de6031
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3114739743310512580
-    second: download-horizontal-black-line-png-701751694604737ovzba5b5o9-removebg-preview_0
+      213: 7144990109534422992
+    second: basketball rotation 3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: download-horizontal-black-line-png-701751694604737ovzba5b5o9-removebg-preview_0
+      name: basketball rotation 3_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 243
-        width: 365
-        height: 14
+        x: 29
+        y: 29
+        width: 287
+        height: 287
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3e7f20c4b836c4d0800000000000000
-      internalID: -3114739743310512580
+      spriteID: 0d78a7a16aa182360800000000000000
+      internalID: 7144990109534422992
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      download-horizontal-black-line-png-701751694604737ovzba5b5o9-removebg-preview_0: -3114739743310512580
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

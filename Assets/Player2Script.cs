@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player2Movement : MonoBehaviour
 {
     public GameObject ballPrefab;
     public Transform ballHoldPoint;
@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isGrounded = false;
-    private float lastATapTime = -1f;
-    private float lastDTapTime = -1f;
+    private float lastLeftTapTime = -1f;
+    private float lastRightTapTime = -1f;
     private bool isDriving = false;
     private float driveTimer = 0f;
     private int driveDirection = 0;
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         normalLayer = gameObject.layer;
-        playerLayer = LayerMask.NameToLayer("Player1");
+        playerLayer = LayerMask.NameToLayer("Player2");
         phasingLayer = LayerMask.NameToLayer("Phasing");
     }
 
@@ -44,38 +44,38 @@ public class PlayerMovement : MonoBehaviour
     {
          if (ScoreManager.Instance != null && ScoreManager.Instance.lockMovement)
         return;
-
+        
         driveCooldownTimer -= Time.deltaTime;
 
         float moveInput = 0f;
         if (!isDriving)
         {
-            if (Input.GetKey(KeyCode.A)) moveInput = -1f;
-            if (Input.GetKey(KeyCode.D)) moveInput = 1f;
+            if (Input.GetKey(KeyCode.LeftArrow)) moveInput = -1f;
+            if (Input.GetKey(KeyCode.RightArrow)) moveInput = 1f;
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isGrounded = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (Time.time - lastATapTime < doubleTapTime && driveCooldownTimer <= 0f && isGrounded)
+            if (Time.time - lastLeftTapTime < doubleTapTime && driveCooldownTimer <= 0f && isGrounded)
             {
                 Drive(-1);
             }
-            lastATapTime = Time.time;
+            lastLeftTapTime = Time.time;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (Time.time - lastDTapTime < doubleTapTime && driveCooldownTimer <= 0f && isGrounded)
+            if (Time.time - lastRightTapTime < doubleTapTime && driveCooldownTimer <= 0f && isGrounded)
             {
                 Drive(1);
             }
-            lastDTapTime = Time.time;
+            lastRightTapTime = Time.time;
         }
 
         if (isDriving)
@@ -91,17 +91,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && hasBall)
+        if (Input.GetKeyDown(KeyCode.M) && hasBall)
         {
             isCharging = true;
             chargeStartTime = Time.time;
         }
-        else if (Input.GetKeyDown(KeyCode.R) && !hasBall)
+        else if (Input.GetKeyDown(KeyCode.M) && !hasBall)
         {
             TrySteal();
         }
 
-        if (Input.GetKeyUp(KeyCode.R) && isCharging)
+        if (Input.GetKeyUp(KeyCode.M) && isCharging)
         {
             float chargeDuration = Time.time - chargeStartTime;
             chargeDuration = Mathf.Min(chargeDuration, maxChargeTime);
@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         _lastShotOrigin = ballHoldPoint.position;
         Vector3 spawnPosition = ballHoldPoint.position;
         GameObject newBall = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
-        newBall.tag = "BallFromP1";
+        newBall.tag = "BallFromP2";
 
         Rigidbody2D ballRb = newBall.GetComponent<Rigidbody2D>();
         if (ballRb == null)
@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void TrySteal()
     {
-        Player2Movement otherPlayer = FindObjectOfType<Player2Movement>();
+        PlayerMovement otherPlayer = FindObjectOfType<PlayerMovement>();
         if (otherPlayer != null && otherPlayer.hasBall)
         {
             float dist = Vector2.Distance(transform.position, otherPlayer.transform.position);
@@ -205,6 +205,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsThreePointer(Vector2 shotPosition)
     {
-        return shotPosition.x < 2.84f;
+        return shotPosition.x > -2.6f;
     }
 }

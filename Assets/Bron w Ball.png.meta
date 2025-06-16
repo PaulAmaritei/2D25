@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cfed743db5df7e147a2274f8437c616e
+guid: e2bb3a298198fee40b66ef59de71be2e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4415188412588140895
-    second: Ball-removebg-preview_0
+      213: 99408775154533490
+    second: Bron w Ball_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ball-removebg-preview_0
+      name: Bron w Ball_0
       rect:
         serializedVersion: 2
-        x: 104
-        y: 114
-        width: 291
-        height: 292
+        x: 189
+        y: 115
+        width: 143
+        height: 277
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f59acb4f776e54d30800000000000000
-      internalID: 4415188412588140895
+      spriteID: 27484aa11cb216100800000000000000
+      internalID: 99408775154533490
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Ball-removebg-preview_0: 4415188412588140895
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

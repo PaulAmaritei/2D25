@@ -6,15 +6,17 @@ TagManager:
   tags:
   - Ball
   - BallPickup
+  - BallFromP1
+  - BallFromP2
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Phasing
   - Water
   - UI
-  - 
-  - 
+  - Player1
+  - Player2
   - 
   - 
   - 
