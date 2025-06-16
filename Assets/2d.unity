@@ -275,6 +275,7 @@ MonoBehaviour:
   player2: {fileID: 305325419}
   player1Spawn: {fileID: 2038574615}
   player2Spawn: {fileID: 1474824332}
+  lockMovement: 0
 --- !u!1 &305325414
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +454,7 @@ MonoBehaviour:
   minShootPower: 3
   maxShootPower: 8
   maxChargeTime: 1
+  stealDistance: 1.5
   hasBall: 0
 --- !u!1 &448697939
 GameObject:
@@ -2208,6 +2210,7 @@ MonoBehaviour:
   minShootPower: 3
   maxShootPower: 8
   maxChargeTime: 1
+  stealDistance: 1.5
   hasBall: 0
 --- !u!70 &1819139138
 CapsuleCollider2D:
