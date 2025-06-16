@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     private int originalLayer;
     private int phasingLayer = 3;
 
+     public bool isMovementLocked = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isMovementLocked) return;
+
         driveCooldownTimer -= Time.deltaTime;
 
         float moveInput = 0f;

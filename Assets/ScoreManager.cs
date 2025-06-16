@@ -86,7 +86,8 @@ public class ScoreManager : MonoBehaviour
 
     private void EndGame()
 {
-    lockMovement = true; // Add this line
+        player1.isMovementLocked = true;
+        player2.isMovementLocked = true;
 
     string winner;
     if (player1Score > player2Score)

@@ -38,6 +38,8 @@ public class Player2Movement : MonoBehaviour
     private int originalLayer;
     private int phasingLayer = 3;
 
+    public bool isMovementLocked = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,6 +52,8 @@ public class Player2Movement : MonoBehaviour
 
     void Update()
     {
+        if (isMovementLocked) return;
+
         driveCooldownTimer -= Time.deltaTime;
 
         float moveInput = 0f;
@@ -211,7 +215,7 @@ public class Player2Movement : MonoBehaviour
         float direction = transform.localScale.x > 0 ? 1 : -1;
         newBall.transform.position += new Vector3(0.2f * direction, 0, 0);
 
-        Vector2 shootDirection = new Vector2(0.9f * direction, 0.8f).normalized;
+        Vector2 shootDirection = new Vector2(-1*0.9f * direction, 0.8f).normalized;
         float power = Mathf.Lerp(minShootPower, maxShootPower, normalizedPower);
 
         ballRb.linearVelocity = Vector2.zero;
