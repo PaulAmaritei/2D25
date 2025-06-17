@@ -24,26 +24,35 @@ public class RightRimScoreTrigger : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D other)
-{
-    if (other.CompareTag("Ball") && other.transform.position.y < _entryY)
     {
-        if (other.gameObject.CompareTag("BallFromP1") || other.gameObject.CompareTag("Ball"))
+        if (other.CompareTag("Ball") && other.transform.position.y < _entryY)
         {
-            Vector2 shotOrigin = player1.GetLastShotOrigin();
-            bool isThreePointer = player1.IsThreePointer(shotOrigin);
-            string message = isThreePointer ? "BANG" : "Score";
-            scoreMessageText.text = message;
-            // Add 2 or 3 points
-            if (isThreePointer)
-                ScoreManager.Instance.AddScore(1, 3);
-            else
-                ScoreManager.Instance.AddScore(1, 2);
-            StartCoroutine(ClearMessageAfterDelay(2f));
+            if (other.gameObject.CompareTag("BallFromP1") || other.gameObject.CompareTag("Ball"))
+            {
+                Vector2 shotOrigin = player1.GetLastShotOrigin();
+                bool isThreePointer = player1.IsThreePointer(shotOrigin);
+                string message = isThreePointer ? "BANG" : "Score";
+                scoreMessageText.text = message;
+
+                // Add points and call scene logic
+                int points = isThreePointer ? 3 : 2;
+                ScoreManager.Instance.AddScore(1, points);
+
+                // Optionally, you can also call the scene-specific logic here:
+                SceneScript sceneScript = FindObjectOfType<SceneScript>();
+                if (sceneScript != null)
+                {
+                    sceneScript.OnPlayerScored(1); // 1 for Player 1 scoring
+                }
+                else
+                {
+                    Debug.LogError("SceneScript not found in scene!");
+                }
+
+                StartCoroutine(ClearMessageAfterDelay(2f));
+            }
         }
     }
-}
-
-
 
     private IEnumerator ClearMessageAfterDelay(float delay)
     {

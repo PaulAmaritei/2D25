@@ -1101,8 +1101,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.7, y: 0.6}
+  m_Offset: {x: 0.108479105, y: -0.000000008298566}
+  m_Size: {x: 2.9169736, y: 0.6000048}
   m_Direction: 1
 --- !u!114 &748599890
 MonoBehaviour:
@@ -1604,6 +1604,58 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2098649267}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1030434836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1030434838}
+  - component: {fileID: 1030434837}
+  m_Layer: 0
+  m_Name: MySceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1030434837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030434836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1223bcb681bdd854ab9e357bbdc05be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetButton: {fileID: 1337544694}
+  endGameButton: {fileID: 743521146}
+  winMessageText: {fileID: 1291504965}
+  scoreDisplay: {fileID: 1067652754}
+  player1: {fileID: 1819139137}
+  player2: {fileID: 305325419}
+  player1Spawn: {fileID: 2038574615}
+  player2Spawn: {fileID: 1474824332}
+--- !u!4 &1030434838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030434836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6144118, y: 0.31943792, z: -0.032775767}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1067652752
@@ -2371,15 +2423,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Score: 0
   player2Score: 0
-  scoreDisplay: {fileID: 1067652754}
-  winMessageText: {fileID: 1291504965}
-  player1: {fileID: 1819139137}
-  player2: {fileID: 305325419}
-  player1Spawn: {fileID: 2038574615}
-  player2Spawn: {fileID: 1474824332}
-  resetButton: {fileID: 1337544694}
-  endGameButton: {fileID: 743521146}
-  lockMovement: 0
+  timeRemaining: 60
+  gameOver: 0
 --- !u!4 &1647379537
 Transform:
   m_ObjectHideFlags: 0
@@ -2946,8 +2991,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.7, y: 0.6}
+  m_Offset: {x: -0.10847623, y: 0.000000008298344}
+  m_Size: {x: 2.9169798, y: 0.6000047}
   m_Direction: 1
 --- !u!1001 &5335277849910090479
 PrefabInstance:
@@ -3080,3 +3125,4 @@ SceneRoots:
   - {fileID: 2038574615}
   - {fileID: 1474824332}
   - {fileID: 1647379537}
+  - {fileID: 1030434838}
