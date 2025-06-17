@@ -404,7 +404,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3938105721786822156, guid: 000b383fbfc495749b742912b2ac3120, type: 3}
+  m_Sprite: {fileID: -1097449468898477836, guid: 5d9b72e92bc2ae54e99aa90a8c321376, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -457,10 +457,11 @@ MonoBehaviour:
   stealRange: 1.5
   stealChance: 0.3
   playerSpriteRenderer: {fileID: 305325417}
-  spriteNoBall: {fileID: -3938105721786822156, guid: 000b383fbfc495749b742912b2ac3120, type: 3}
-  spriteWithBall: {fileID: -4390423455950668112, guid: 83a20bfff572b7e489dad566ff8c0b43, type: 3}
-  spriteShooting: {fileID: -3938105721786822156, guid: 000b383fbfc495749b742912b2ac3120, type: 3}
+  spriteNoBall: {fileID: -1097449468898477836, guid: 5d9b72e92bc2ae54e99aa90a8c321376, type: 3}
+  spriteWithBall: {fileID: -3042249569510760585, guid: 89195358ebc69e043915640ef92d5032, type: 3}
+  spriteShooting: {fileID: -3042249569510760585, guid: 89195358ebc69e043915640ef92d5032, type: 3}
   hasBall: 0
+  isMovementLocked: 0
 --- !u!1 &448697939
 GameObject:
   m_ObjectHideFlags: 0
@@ -2222,6 +2223,7 @@ MonoBehaviour:
   spriteWithBall: {fileID: -7262328396927834784, guid: ebca6edb5b07f8140a9a104c137629cb, type: 3}
   spriteShooting: {fileID: -7262328396927834784, guid: ebca6edb5b07f8140a9a104c137629cb, type: 3}
   hasBall: 0
+  isMovementLocked: 0
 --- !u!70 &1819139138
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
